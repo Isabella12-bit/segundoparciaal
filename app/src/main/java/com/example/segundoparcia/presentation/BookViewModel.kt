@@ -27,4 +27,10 @@ class BookViewModel @Inject constructor(
             }
         }
     }
+
+    fun saveBook(book: Book) {
+        viewModelScope.launch {
+            saveBookUseCase(book)
+        }
+    }
 }

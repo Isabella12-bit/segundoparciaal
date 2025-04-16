@@ -39,14 +39,15 @@ fun BookSearchScreen(viewModel: BookViewModel) {
 
         LazyColumn {
             items(books) { book ->
-                BookItem(book = book)
+                BookItem(book = book, viewModel = viewModel)
+
             }
         }
     }
 }
 
 @Composable
-fun BookItem(book: Book) {
+fun BookItem(book: Book, viewModel: BookViewModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,8 +58,10 @@ fun BookItem(book: Book) {
             Text(book.title, style = MaterialTheme.typography.titleMedium)
             Text("Autor: ${book.authors.joinToString()}")
             Text("Año: ${book.year}")
-            IconButton(onClick = { /* más adelante: guardar en Room */ }) {
-                Icon(Icons.Default.FavoriteBorder, contentDescription = "Me gusta")
+            IconButton(onClick = {
+                viewModel.saveBook(book)
+            }) {
+                Icon(Icons.Default.FavoriteBorder, contentDescription = "Me gusta", tint = MaterialTheme.colorScheme.primary)
             }
         }
     }
