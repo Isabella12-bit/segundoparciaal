@@ -12,9 +12,10 @@ import androidx.compose.ui.unit.dp
 import com.example.segundoparcia.domain.model.Book
 import com.example.segundoparcia.presentation.BookViewModel
 import androidx.compose.ui.Alignment
+import androidx.navigation.NavHostController
 
 @Composable
-fun BookSearchScreen(viewModel: BookViewModel) {
+fun BookSearchScreen(viewModel: BookViewModel, navController: NavHostController) {
     var query by remember { mutableStateOf("") }
     val books by viewModel.books.collectAsState()
 
@@ -28,11 +29,17 @@ fun BookSearchScreen(viewModel: BookViewModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = { viewModel.search(query) },
-            modifier = Modifier.align(Alignment.End)
+        // Ambos botones en fila
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Buscar")
+            Button(onClick = { viewModel.search(query) }) {
+                Text("Buscar")
+            }
+            Button(onClick = { navController.navigate("liked_books") }) {
+                Text("Ver guardados")
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -40,7 +47,6 @@ fun BookSearchScreen(viewModel: BookViewModel) {
         LazyColumn {
             items(books) { book ->
                 BookItem(book = book, viewModel = viewModel)
-
             }
         }
     }

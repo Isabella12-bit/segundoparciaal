@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.segundoparcia.presentation.BookViewModel
 import com.example.segundoparcia.ui.screens.BookSearchScreen
+import com.example.segundoparcia.ui.screens.LikedBooksScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -14,7 +15,10 @@ fun AppNavGraph(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "search") {
         composable("search") {
-            BookSearchScreen(viewModel)
+            BookSearchScreen(viewModel = viewModel, navController = navController)
+        }
+        composable("liked_books") {
+            LikedBooksScreen(viewModel = viewModel)
         }
     }
 }

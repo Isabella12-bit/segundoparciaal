@@ -1,11 +1,9 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(androidx.plugins.android)
+    alias(androidx.plugins.kotlinAndroid)
     id("org.jetbrains.kotlin.kapt")
-    alias(libs.plugins.hilt)
+    alias(androidx.plugins.hilt)
 }
-
 android {
     namespace = "com.example.segundoparcia"
     compileSdk = 34

@@ -37,4 +37,13 @@ class BookViewModel @Inject constructor(
             saveBookUseCase(book)
         }
     }
+
+    private val _likedBooks = MutableStateFlow<List<Book>>(emptyList())
+    val likedBooks: StateFlow<List<Book>> = _likedBooks
+
+    fun getLikedBooks() {
+        viewModelScope.launch {
+            _likedBooks.value = repository.getLikedBooks()
+        }
+    }
 }

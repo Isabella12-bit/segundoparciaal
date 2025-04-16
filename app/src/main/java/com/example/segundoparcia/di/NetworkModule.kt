@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import com.example.segundoparcia.data.local.BookDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,6 +30,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRepository(api: OpenLibraryApi): BookRepository =
-        BookRepositoryImpl(api)
+    fun provideRepository(
+        api: OpenLibraryApi,
+        dao: BookDao
+    ): BookRepository = BookRepositoryImpl(api, dao)
+
 }
