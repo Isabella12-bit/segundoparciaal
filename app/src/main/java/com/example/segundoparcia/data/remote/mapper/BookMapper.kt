@@ -11,12 +11,3 @@ fun BookDto.toDomain(): Book {
         year = first_publish_year ?: 0
     )
 }
-
-fun Book.toEntity(): BookEntity {
-    return BookEntity(
-        title = this.title,
-        authors = this.authors.joinToString(", "),
-        publishYear = this.year.toString()
-    )
-}
-

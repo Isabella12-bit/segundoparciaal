@@ -9,10 +9,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.segundoparcia.domain.usecase.SearchBooksUseCase
+import com.example.segundoparcia.domain.usecase.SaveBookUseCase
 
 @HiltViewModel
 class BookViewModel @Inject constructor(
-    private val repository: BookRepository
+    private val repository: BookRepository,
+    private val searchBooksUseCase: SearchBooksUseCase,
+    private val saveBookUseCase: SaveBookUseCase
 ) : ViewModel() {
 
     private val _books = MutableStateFlow<List<Book>>(emptyList())
@@ -21,7 +25,7 @@ class BookViewModel @Inject constructor(
     fun search(query: String) {
         viewModelScope.launch {
             try {
-                _books.value = repository.searchBooks(query)
+                _books.value = searchBooksUseCase(query)
             } catch (e: Exception) {
                 _books.value = emptyList()
             }
